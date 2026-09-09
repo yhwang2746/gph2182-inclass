@@ -1,7 +1,7 @@
 ---
 title: "Week 2 In-Class Exercise: Vectors & Subsetting"
 subtitle: "GPH-GU 2182 · Statistical Programming in R"
-author: "YOUR NAME & PARTNER NAME"
+author: "Yehrim Hwang & Shawnee King"
 date: "September 9, 2026"
 format:
   html:
