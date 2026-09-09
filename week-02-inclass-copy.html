@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="YOUR NAME &amp; PARTNER NAME">
+<meta name="author" content="Yehrim Hwang &amp; Shawnee King">
 <meta name="dcterms.date" content="2026-09-09">
 
 <title>Week 2 In-Class Exercise: Vectors &amp; Subsetting</title>
@@ -157,7 +157,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>YOUR NAME &amp; PARTNER NAME </p>
+             <p>Yehrim Hwang &amp; Shawnee King </p>
           </div>
   </div>
     
@@ -344,6 +344,7 @@ window.Quarto = {
 <li>What did R do when computing <code>bmi_calc</code>? Why is the result clinically invalid?</li>
 <li>How would you write a defensive check in R to prevent vector recycling when calculating BMI?</li>
 </ol>
+<p><em>(Write your explanation and defensive check below)</em></p>
 <p>When computing bmi_calc as written above, R will perform element-wise division. That is, the person with height = 1.70 will have a BMI with the weight 65; the person with height = 1.85 will have a BMI with weight = 82; the person with height = 1.62 will have a BMI with weight = 65; the person with height = 1.78 will have a BMI with the weight = 65). In short, given that the weights vector is length 2 and heights vector is length 5, R will ‘recycle’ the two values in weights so that the 2 elements of heights still have a corresponding weight for the calculation.</p>
 <p>This is clinically invalid unless the person with height 1.62 actually has a weight = 65 and the person with the height 1.78 actually has a weight =82. Otherwise, the recycling method that R will use will assign incorrect weights for 2 people, which render incorrect BMI values.</p>
 <p>A defensive check would be to first check if the length of the height vector is the same as the length of the weight vector:</p>
@@ -354,7 +355,6 @@ window.Quarto = {
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this should print "not enough info" if the height and length vectors are NOT equivalent length. </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><em>(Write your explanation and defensive check below)</em></p>
 <hr>
 </section>
 </section>
@@ -826,7 +826,7 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Week 2 In-Class Exercise: Vectors &amp; Subsetting"</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "GPH-GU 2182 · Statistical Programming in R"</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "YOUR NAME &amp; PARTNER NAME"</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Yehrim Hwang &amp; Shawnee King"</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "September 9, 2026"</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
@@ -910,130 +910,131 @@ window.Quarto = {
 <span id="cb25-85"><a href="#cb25-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Create dosage hours:</span></span>
 <span id="cb25-86"><a href="#cb25-86" aria-hidden="true" tabindex="-1"></a>dose_hour <span class="ot">&lt;-</span> <span class="fu">seq</span> (<span class="at">from =</span><span class="dv">0</span>, <span class="at">to =</span> <span class="dv">72</span>, <span class="at">by =</span><span class="dv">8</span>)</span>
 <span id="cb25-87"><a href="#cb25-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cohort Generation with `rep()`</span></span>
-<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a>A vaccine trial requires creating treatment labels for 12</span>
-<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a>participants: - 4 "Control" - 4 "Low-Dose" - 4 "High-Dose"</span>
-<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a>Generate this character vector using the <span class="in">`rep()`</span> function and assign it</span>
-<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a>to <span class="in">`treatment_groups`</span>.</span>
-<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r treatment-rep}</span></span>
-<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate treatment labels:</span></span>
-<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a>treament_groups <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Low Dose"</span>, <span class="st">"HighDose"</span>), <span class="at">times =</span> <span class="dv">4</span>)</span>
-<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extracting Multiples with Modulo `%%`</span></span>
-<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a>Given the sequence <span class="in">`numbers &lt;- 1:50`</span>, extract all numbers that are</span>
-<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a>divisible by 7.</span>
-<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r modulo-filter}</span></span>
-<span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
-<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract multiples of 7:</span></span>
-<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a>numbers[numbers <span class="sc">%%</span><span class="dv">7</span> <span class="sc">==</span><span class="dv">0</span>]</span>
-<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cycle 3: Subsetting &amp; Mutating Vectors</span></span>
-<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a><span class="fu">## Glucose Filtering and Cleaning</span></span>
-<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a>A metabolic health study collected fasting blood glucose levels (mg/dL)</span>
-<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a>from 8 patients: <span class="in">`glucose &lt;- c(95, 142, 180, 88, 210, 115, -1, 104)`</span></span>
-<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Extract all values in the **pre-diabetes range**</span>
-<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a>    ($100 \le \text{glucose} \le 125$).</span>
-<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The measurement <span class="in">`-1`</span> is a missing value code. Replace all negative</span>
-<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a>    values in <span class="in">`glucose`</span> with <span class="in">`NA`</span>.</span>
-<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Extract all valid readings ($\ge 126$, excluding <span class="in">`NA`</span>) indicating</span>
-<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a>    **diabetes**.</span>
-<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r glucose-subset}</span></span>
-<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a>glucose <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">142</span>, <span class="dv">180</span>, <span class="dv">88</span>, <span class="dv">210</span>, <span class="dv">115</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">104</span>)</span>
-<span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Pre-diabetes subset:</span></span>
-<span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a>glucose[<span class="dv">100</span> <span class="sc">&lt;=</span> glucose <span class="sc">&amp;</span> glucose <span class="sc">&lt;=</span><span class="dv">125</span>]</span>
-<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. In-place replacement of negative values with NA:</span></span>
-<span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a>glucose [glucose <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Diabetes subset (&gt;= 126, non-NA):</span></span>
-<span id="cb25-142"><a href="#cb25-142" aria-hidden="true" tabindex="-1"></a>glucose [glucose <span class="sc">&gt;=</span><span class="dv">126</span><span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(glucose)]</span>
-<span id="cb25-143"><a href="#cb25-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-146"><a href="#cb25-146" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cycle 4: Sorting, Ranking &amp; AI Verification</span></span>
-<span id="cb25-149"><a href="#cb25-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-150"><a href="#cb25-150" aria-hidden="true" tabindex="-1"></a><span class="fu">## Patient Rankings</span></span>
-<span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a>A clinic recorded wait times (minutes) for 5 emergency room patients:</span>
-<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a><span class="in">`wait_times &lt;- c(45, 12, 85, 30, 45)`</span></span>
-<span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-155"><a href="#cb25-155" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Sort the wait times in **descending order** (longest to shortest).</span>
-<span id="cb25-156"><a href="#cb25-156" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Compute the ranks of each patient's wait time using</span>
-<span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a>    <span class="in">`rank(..., ties.method = "first")`</span>.</span>
-<span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r wait-times}</span></span>
-<span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a>wait_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">85</span>, <span class="dv">30</span>, <span class="dv">45</span>)</span>
-<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Descending sort:</span></span>
-<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> (wait_times, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. First-appearance ranking:</span></span>
-<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a><span class="fu">rank</span> (wait_times, <span class="at">ties.method =</span> <span class="st">"first"</span>)</span>
-<span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## AI Corner: Spotting Vector Recycling Errors</span></span>
-<span id="cb25-169"><a href="#cb25-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-170"><a href="#cb25-170" aria-hidden="true" tabindex="-1"></a>An AI assistant was asked to calculate the Body Mass Index for 4</span>
-<span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a>patients with heights (in meters) <span class="in">`c(1.70, 1.85, 1.62, 1.78)`</span> and</span>
-<span id="cb25-172"><a href="#cb25-172" aria-hidden="true" tabindex="-1"></a>weights (in kg) <span class="in">`c(65, 82)`</span>.</span>
-<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a>The AI produced this code:</span>
-<span id="cb25-175"><a href="#cb25-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-176"><a href="#cb25-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-recycling}</span></span>
-<span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a><span class="co"># AI Generated code:</span></span>
-<span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.70</span>, <span class="fl">1.85</span>, <span class="fl">1.62</span>, <span class="fl">1.78</span>)</span>
-<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">82</span>)</span>
-<span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a>bmi_calc <span class="ot">&lt;-</span> weights <span class="sc">/</span> (heights<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-183"><a href="#cb25-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### Questions:</span></span>
-<span id="cb25-184"><a href="#cb25-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What did R do when computing <span class="in">`bmi_calc`</span>? Why is the result</span>
-<span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a>    clinically invalid?</span>
-<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>How would you write a defensive check in R to prevent vector</span>
-<span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a>    recycling when calculating BMI?</span>
-<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-190"><a href="#cb25-190" aria-hidden="true" tabindex="-1"></a>When computing bmi_calc as written above, R will perform element-wise division. That is, the person with height = 1.70 will have a BMI with the weight 65; the person with height = 1.85 will have a BMI with weight = 82; the person with height = 1.62 will have a BMI with weight = 65; the person with height = 1.78 will have a BMI with the weight = 65). In short, given that the weights vector is length 2 and heights vector is length 5, R will 'recycle' the two values in weights so that the 2 elements of heights still have a corresponding weight for the calculation. </span>
+<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cohort Generation with `rep()`</span></span>
+<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a>A vaccine trial requires creating treatment labels for 12</span>
+<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a>participants: - 4 "Control" - 4 "Low-Dose" - 4 "High-Dose"</span>
+<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a>Generate this character vector using the <span class="in">`rep()`</span> function and assign it</span>
+<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a>to <span class="in">`treatment_groups`</span>.</span>
+<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r treatment-rep}</span></span>
+<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate treatment labels:</span></span>
+<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a>treament_groups <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Low Dose"</span>, <span class="st">"HighDose"</span>), <span class="at">times =</span> <span class="dv">4</span>)</span>
+<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extracting Multiples with Modulo `%%`</span></span>
+<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a>Given the sequence <span class="in">`numbers &lt;- 1:50`</span>, extract all numbers that are</span>
+<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a>divisible by 7.</span>
+<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r modulo-filter}</span></span>
+<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
+<span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract multiples of 7:</span></span>
+<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a>numbers[numbers <span class="sc">%%</span><span class="dv">7</span> <span class="sc">==</span><span class="dv">0</span>]</span>
+<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cycle 3: Subsetting &amp; Mutating Vectors</span></span>
+<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Glucose Filtering and Cleaning</span></span>
+<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a>A metabolic health study collected fasting blood glucose levels (mg/dL)</span>
+<span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a>from 8 patients: <span class="in">`glucose &lt;- c(95, 142, 180, 88, 210, 115, -1, 104)`</span></span>
+<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Extract all values in the **pre-diabetes range**</span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a>    ($100 \le \text{glucose} \le 125$).</span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>The measurement <span class="in">`-1`</span> is a missing value code. Replace all negative</span>
+<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a>    values in <span class="in">`glucose`</span> with <span class="in">`NA`</span>.</span>
+<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Extract all valid readings ($\ge 126$, excluding <span class="in">`NA`</span>) indicating</span>
+<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a>    **diabetes**.</span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r glucose-subset}</span></span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a>glucose <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">95</span>, <span class="dv">142</span>, <span class="dv">180</span>, <span class="dv">88</span>, <span class="dv">210</span>, <span class="dv">115</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">104</span>)</span>
+<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Pre-diabetes subset:</span></span>
+<span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a>glucose[<span class="dv">100</span> <span class="sc">&lt;=</span> glucose <span class="sc">&amp;</span> glucose <span class="sc">&lt;=</span><span class="dv">125</span>]</span>
+<span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. In-place replacement of negative values with NA:</span></span>
+<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a>glucose [glucose <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Diabetes subset (&gt;= 126, non-NA):</span></span>
+<span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a>glucose [glucose <span class="sc">&gt;=</span><span class="dv">126</span><span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(glucose)]</span>
+<span id="cb25-142"><a href="#cb25-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-143"><a href="#cb25-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb25-146"><a href="#cb25-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cycle 4: Sorting, Ranking &amp; AI Verification</span></span>
+<span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-149"><a href="#cb25-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## Patient Rankings</span></span>
+<span id="cb25-150"><a href="#cb25-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a>A clinic recorded wait times (minutes) for 5 emergency room patients:</span>
+<span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a><span class="in">`wait_times &lt;- c(45, 12, 85, 30, 45)`</span></span>
+<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Sort the wait times in **descending order** (longest to shortest).</span>
+<span id="cb25-155"><a href="#cb25-155" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Compute the ranks of each patient's wait time using</span>
+<span id="cb25-156"><a href="#cb25-156" aria-hidden="true" tabindex="-1"></a>    <span class="in">`rank(..., ties.method = "first")`</span>.</span>
+<span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r wait-times}</span></span>
+<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a>wait_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">12</span>, <span class="dv">85</span>, <span class="dv">30</span>, <span class="dv">45</span>)</span>
+<span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Descending sort:</span></span>
+<span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> (wait_times, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. First-appearance ranking:</span></span>
+<span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a><span class="fu">rank</span> (wait_times, <span class="at">ties.method =</span> <span class="st">"first"</span>)</span>
+<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## AI Corner: Spotting Vector Recycling Errors</span></span>
+<span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-169"><a href="#cb25-169" aria-hidden="true" tabindex="-1"></a>An AI assistant was asked to calculate the Body Mass Index for 4</span>
+<span id="cb25-170"><a href="#cb25-170" aria-hidden="true" tabindex="-1"></a>patients with heights (in meters) <span class="in">`c(1.70, 1.85, 1.62, 1.78)`</span> and</span>
+<span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a>weights (in kg) <span class="in">`c(65, 82)`</span>.</span>
+<span id="cb25-172"><a href="#cb25-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a>The AI produced this code:</span>
+<span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-175"><a href="#cb25-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r ai-recycling}</span></span>
+<span id="cb25-176"><a href="#cb25-176" aria-hidden="true" tabindex="-1"></a><span class="co"># AI Generated code:</span></span>
+<span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.70</span>, <span class="fl">1.85</span>, <span class="fl">1.62</span>, <span class="fl">1.78</span>)</span>
+<span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">82</span>)</span>
+<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a>bmi_calc <span class="ot">&lt;-</span> weights <span class="sc">/</span> (heights<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a><span class="fu">### Questions:</span></span>
+<span id="cb25-183"><a href="#cb25-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-184"><a href="#cb25-184" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What did R do when computing <span class="in">`bmi_calc`</span>? Why is the result</span>
+<span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a>    clinically invalid?</span>
+<span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>How would you write a defensive check in R to prevent vector</span>
+<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a>    recycling when calculating BMI?</span>
+<span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a>*(Write your explanation and defensive check below)*</span>
+<span id="cb25-190"><a href="#cb25-190" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a>This is clinically invalid unless the person with height 1.62 actually has a weight = 65 and the person with the height 1.78 actually has a weight =82. Otherwise, the recycling method that R will use will assign incorrect weights for 2 people, which render incorrect BMI values. </span>
+<span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a>When computing bmi_calc as written above, R will perform element-wise division. That is, the person with height = 1.70 will have a BMI with the weight 65; the person with height = 1.85 will have a BMI with weight = 82; the person with height = 1.62 will have a BMI with weight = 65; the person with height = 1.78 will have a BMI with the weight = 65). In short, given that the weights vector is length 2 and heights vector is length 5, R will 'recycle' the two values in weights so that the 2 elements of heights still have a corresponding weight for the calculation. </span>
 <span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a>A defensive check would be to first check if the length of the height vector is the same as the length of the weight vector:</span>
-<span id="cb25-197"><a href="#cb25-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb25-198"><a href="#cb25-198" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(heights) <span class="sc">==</span> <span class="fu">length</span>(weights)) <span class="fu">print</span> (<span class="st">"not enough info"</span>)</span>
-<span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a><span class="co">#this should print "not enough info" if the height and length vectors are NOT equivalent length. </span></span>
-<span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-201"><a href="#cb25-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a>This is clinically invalid unless the person with height 1.62 actually has a weight = 65 and the person with the height 1.78 actually has a weight =82. Otherwise, the recycling method that R will use will assign incorrect weights for 2 people, which render incorrect BMI values. </span>
+<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-196"><a href="#cb25-196" aria-hidden="true" tabindex="-1"></a>A defensive check would be to first check if the length of the height vector is the same as the length of the weight vector:</span>
+<span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">length</span>(heights) <span class="sc">==</span> <span class="fu">length</span>(weights)) <span class="fu">print</span> (<span class="st">"not enough info"</span>)</span>
+<span id="cb25-201"><a href="#cb25-201" aria-hidden="true" tabindex="-1"></a><span class="co">#this should print "not enough info" if the height and length vectors are NOT equivalent length. </span></span>
 <span id="cb25-202"><a href="#cb25-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-203"><a href="#cb25-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-204"><a href="#cb25-204" aria-hidden="true" tabindex="-1"></a>*(Write your explanation and defensive check below)*</span>
+<span id="cb25-203"><a href="#cb25-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-204"><a href="#cb25-204" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-205"><a href="#cb25-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-206"><a href="#cb25-206" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
-<span id="cb25-207"><a href="#cb25-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-208"><a href="#cb25-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## Submission Checklist</span></span>
-<span id="cb25-209"><a href="#cb25-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-210"><a href="#cb25-210" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Both your name and your partner's name are in the <span class="in">`author`</span> field</span>
-<span id="cb25-211"><a href="#cb25-211" aria-hidden="true" tabindex="-1"></a>  at the top.</span>
-<span id="cb25-212"><a href="#cb25-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Click **Render** in RStudio and verify the HTML compiles cleanly.</span>
-<span id="cb25-213"><a href="#cb25-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Commit and push your changes to your GitHub repository.</span>
+<span id="cb25-206"><a href="#cb25-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-207"><a href="#cb25-207" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb25-208"><a href="#cb25-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-209"><a href="#cb25-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Submission Checklist</span></span>
+<span id="cb25-210"><a href="#cb25-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-211"><a href="#cb25-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Both your name and your partner's name are in the <span class="in">`author`</span> field</span>
+<span id="cb25-212"><a href="#cb25-212" aria-hidden="true" tabindex="-1"></a>  at the top.</span>
+<span id="cb25-213"><a href="#cb25-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Click **Render** in RStudio and verify the HTML compiles cleanly.</span>
+<span id="cb25-214"><a href="#cb25-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="va">[ ]</span> Commit and push your changes to your GitHub repository.</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
