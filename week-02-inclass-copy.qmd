@@ -1,0 +1,212 @@
+---
+title: "Week 2 In-Class Exercise: Vectors & Subsetting"
+subtitle: "GPH-GU 2182 · Statistical Programming in R"
+author: "YOUR NAME & PARTNER NAME"
+date: "September 9, 2026"
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-tools:
+      source: true
+      toggle: false
+      caption: "Source Code"
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+::: callout-note
+### Instructions
+
+Work in pairs during class.
+
+- 📥 [**Download
+  `week-02-inclass.qmd`**](https://gph-2182.github.io/weeks/inclass/week-02-inclass.qmd)
+  to open and edit in RStudio (or use the **`</> Source Code`** button
+  at the top right).
+- Render this Quarto document to HTML and push it to your GitHub
+  repository by the end of class for participation credit.
+:::
+
+# Cycle 1: Vector Types & Implicit Coercion
+
+## Type Predictions and Verification
+
+In the code chunk below, write R code to check the `typeof()` of each of
+the following expressions:
+
+- `vec_a <- c(4, 7, FALSE)`
+- `vec_b <- c(3L, 5.5, "control")`
+- `vec_c <- c(TRUE, FALSE) + 5`
+
+```{r type-checks}
+# Create the vectors and check their types:
+vec_a <- c(4, 7, FALSE)
+vec_b <- c(3L, 5.5, "control")
+vec_c <- c(TRUE, FALSE) + 5
+typeof(vec_a)
+typeof (vec_b)
+typeof(vec_c)
+
+
+```
+
+## Public Health Prevalence Calculation
+
+A study recorded the HIV viral load copies/mL for 8 participants:
+`1200, 450, 0, 8900, 320, 0, 1500, 60`.
+
+1.  Create a numeric vector named `viral_load` with these measurements.
+2.  Use a logical comparison and the `mean()` function to calculate the
+    **proportion of patients with undetectable viral load**
+    ($\text{viral load} = 0$).
+
+```{r viral-load}
+# Calculate undetectable proportion:
+viral_load <- c(1200, 450, 0, 8900, 320, 0, 1500, 60)
+mean(viral_load==0)
+
+```
+
+------------------------------------------------------------------------
+
+# Cycle 2: Creating Patterned Vectors
+
+## Dosage Schedules with `seq()`
+
+An intravenous antibiotic is administered every **8 hours** across a
+**72-hour** hospital observation period.
+
+Create a sequence named `dose_hours` starting at hour 0 up to hour 72
+with increments of 8.
+
+```{r dose-seq}
+# Create dosage hours:
+dose_hour <- seq (from =0, to = 72, by =8)
+
+```
+
+## Cohort Generation with `rep()`
+
+A vaccine trial requires creating treatment labels for 12
+participants: - 4 "Control" - 4 "Low-Dose" - 4 "High-Dose"
+
+Generate this character vector using the `rep()` function and assign it
+to `treatment_groups`.
+
+```{r treatment-rep}
+# Generate treatment labels:
+treament_groups <- rep (c("Control", "Low Dose", "HighDose"), times = 4)
+
+```
+
+## Extracting Multiples with Modulo `%%`
+
+Given the sequence `numbers <- 1:50`, extract all numbers that are
+divisible by 7.
+
+```{r modulo-filter}
+numbers <- 1:50
+# Extract multiples of 7:
+numbers[numbers %%7 ==0]
+
+```
+
+------------------------------------------------------------------------
+
+# Cycle 3: Subsetting & Mutating Vectors
+
+## Glucose Filtering and Cleaning
+
+A metabolic health study collected fasting blood glucose levels (mg/dL)
+from 8 patients: `glucose <- c(95, 142, 180, 88, 210, 115, -1, 104)`
+
+1.  Extract all values in the **pre-diabetes range**
+    ($100 \le \text{glucose} \le 125$).
+2.  The measurement `-1` is a missing value code. Replace all negative
+    values in `glucose` with `NA`.
+3.  Extract all valid readings ($\ge 126$, excluding `NA`) indicating
+    **diabetes**.
+
+```{r glucose-subset}
+glucose <- c(95, 142, 180, 88, 210, 115, -1, 104)
+
+# 1. Pre-diabetes subset:
+glucose[100 <= glucose & glucose <=125]
+# 2. In-place replacement of negative values with NA:
+glucose [glucose == -1] <- NA
+
+# 3. Diabetes subset (>= 126, non-NA):
+glucose [glucose >=126& !is.na(glucose)]
+
+```
+
+------------------------------------------------------------------------
+
+# Cycle 4: Sorting, Ranking & AI Verification
+
+## Patient Rankings
+
+A clinic recorded wait times (minutes) for 5 emergency room patients:
+`wait_times <- c(45, 12, 85, 30, 45)`
+
+1.  Sort the wait times in **descending order** (longest to shortest).
+2.  Compute the ranks of each patient's wait time using
+    `rank(..., ties.method = "first")`.
+
+```{r wait-times}
+wait_times <- c(45, 12, 85, 30, 45)
+
+# 1. Descending sort:
+sort (wait_times, decreasing = TRUE)
+# 2. First-appearance ranking:
+rank (wait_times, ties.method = "first")
+```
+
+## AI Corner: Spotting Vector Recycling Errors
+
+An AI assistant was asked to calculate the Body Mass Index for 4
+patients with heights (in meters) `c(1.70, 1.85, 1.62, 1.78)` and
+weights (in kg) `c(65, 82)`.
+
+The AI produced this code:
+
+```{r ai-recycling}
+# AI Generated code:
+heights <- c(1.70, 1.85, 1.62, 1.78)
+weights <- c(65, 82)
+bmi_calc <- weights / (heights^2)
+```
+
+### Questions:
+
+1.  What did R do when computing `bmi_calc`? Why is the result
+    clinically invalid?
+2.  How would you write a defensive check in R to prevent vector
+    recycling when calculating BMI?
+    
+*(Write your explanation and defensive check below)*
+
+
+When computing bmi_calc as written above, R will perform element-wise division. That is, the person with height = 1.70 will have a BMI with the weight 65; the person with height = 1.85 will have a BMI with weight = 82; the person with height = 1.62 will have a BMI with weight = 65; the person with height = 1.78 will have a BMI with the weight = 65). In short, given that the weights vector is length 2 and heights vector is length 5, R will 'recycle' the two values in weights so that the 2 elements of heights still have a corresponding weight for the calculation. 
+
+This is clinically invalid unless the person with height 1.62 actually has a weight = 65 and the person with the height 1.78 actually has a weight =82. Otherwise, the recycling method that R will use will assign incorrect weights for 2 people, which render incorrect BMI values. 
+
+A defensive check would be to first check if the length of the height vector is the same as the length of the weight vector:
+```{r}
+ if (!length(heights) == length(weights)) print ("not enough info")
+#this should print "not enough info" if the height and length vectors are NOT equivalent length. 
+
+```
+
+
+
+------------------------------------------------------------------------
+
+## Submission Checklist
+
+- [ ] Both your name and your partner's name are in the `author` field
+  at the top.
+- [ ] Click **Render** in RStudio and verify the HTML compiles cleanly.
+- [ ] Commit and push your changes to your GitHub repository.
